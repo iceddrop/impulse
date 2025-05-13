@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "impulse",
+    "slug": "impulse",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/impulse.png",
+    "scheme": "impulse",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+     "androidStatusBar": {
+      "backgroundColor": "transparent",
+      "translucent": true
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/impulse.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/impulse.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2c034556-55e3-4e7f-9d34-0d4f7417b5ba"
+      }
+    },
+    "owner": "devicedrop"
+  }
+}
