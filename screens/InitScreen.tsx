@@ -45,7 +45,7 @@ export default function InitScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`bg-black py-3 rounded-md mt-4`}
-              onPress={() => alert("Button Pressed")}
+              onPress={() => router.push("/Login")}
             >
               <Text style={[tw`text-center text-white text-lg`, {fontFamily: "PoppinsRegular"}]}>Login</Text>
             </TouchableOpacity>
@@ -76,7 +76,7 @@ export default function InitScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`bg-black py-3 rounded-md mt-4`}
-              onPress={() => alert("Button Pressed")}
+              onPress={() => router.push("/Login")}
             >
               <Text style={[tw`text-center text-white text-lg`, {fontFamily: "PoppinsRegular"}]}>Login</Text>
             </TouchableOpacity>
@@ -107,7 +107,7 @@ export default function InitScreen() {
             </TouchableOpacity>
             <TouchableOpacity
               style={tw`bg-black py-3 rounded-md mt-4`}
-              onPress={() => alert("Button Pressed")}
+               onPress={() => router.push("/Login")}
             >
               <Text style={[tw`text-center text-white text-lg`, {fontFamily: "PoppinsRegular"}]}>Login</Text>
             </TouchableOpacity>
