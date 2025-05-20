@@ -62,7 +62,7 @@ const SignupScreen = () => {
       </View>
          <TouchableOpacity
               style={tw`bg-green-700 py-3 rounded-md `}
-              onPress={() => router.push("/Signup")}
+              onPress={() => router.push("/SetPin")}
             >
               <Text style={[tw`text-white text-center text-lg`, {fontFamily: "PoppinsRegular"}]}>Create an account</Text>
             </TouchableOpacity>
