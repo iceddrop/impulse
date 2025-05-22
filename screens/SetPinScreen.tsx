@@ -1,7 +1,14 @@
 import Entypo from "@expo/vector-icons/Entypo";
-import { router } from "expo-router";
+import { router, useRouter } from "expo-router";
 import { useState } from "react";
-import { Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Touchable,
+  View,
+} from "react-native";
 import {
   CodeField,
   Cursor,
@@ -11,6 +18,7 @@ import {
 import tw from "tailwind-react-native-classnames";
 import { TextInput } from "react-native";
 import { useFonts } from "expo-font";
+import { TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 20 },
@@ -41,14 +49,16 @@ const SetPinScreen = () => {
     setValue,
   });
 
-    const [fontsLoaded] = useFonts({
-      PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
-      PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
-    });
+  const [fontsLoaded] = useFonts({
+    PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
+    PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
+  });
+
+    const router = useRouter();
   return (
-    <View style={[tw`px-4`]}>
+    <View style={[tw`px-4 bg-white`, { height: "100%" }]}>
       <View
-        style={tw`bg-gray-100 h-8 w-8 flex mt-3 items-center justify-center rounded-full`}
+        style={tw`bg-gray-100 h-8 w-8 flex mt-10  items-center justify-center rounded-full`}
       >
         <Entypo
           onPress={() => router.push("/Signup")}
@@ -57,8 +67,12 @@ const SetPinScreen = () => {
           color="gray"
         />
       </View>
-      <Text style={[tw`text-2xl pt-4`, {fontFamily: "PoppinsRegular"}]}>Create your 6-Digit Pin</Text>
-      <Text style={[tw`text-gray-400 pt-2`, {fontFamily: "PoppinsRegular"}]}>Create a pin for Impulse account</Text>
+      <Text style={[tw`text-2xl pt-4`, { fontFamily: "PoppinsRegular" }]}>
+        Create your 6-Digit Pin
+      </Text>
+      <Text style={[tw`text-gray-400 pt-2`, { fontFamily: "PoppinsRegular" }]}>
+        Create a pin for Impulse account
+      </Text>
       <SafeAreaView style={styles.root}>
         <CodeField
           InputComponent={TextInput}
@@ -83,6 +97,19 @@ const SetPinScreen = () => {
             </Text>
           )}
         />
+        <TouchableOpacity
+          style={tw`bg-green-700 py-3 rounded-md mt-4`}
+          onPress={() => router.push("/Login")}  
+        >
+          <Text
+            style={[
+              tw`text-white text-center text-lg`,
+              { fontFamily: "PoppinsRegular" },
+            ]}
+          >
+            Set Pin
+          </Text>
+        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );

@@ -96,7 +96,7 @@ export default function InitScreen() {
             />
           </View>
           <Text style={[tw`text-black font-bold px-4 text-center text-2xl pt-2`, {fontFamily: "PoppinsBold"}]}>
-            Watch your savings grow
+            Watch your funds grow
           </Text>
           <View style={tw`pt-6 px-6`}>
              <TouchableOpacity

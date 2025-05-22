@@ -16,8 +16,8 @@ const SignupScreen = () => {
 
   const [formData, setFormData] = useState({});
   return (
-    <View style={[tw`px-4`,{backgroundColor:"#060320"}, { height: screenHeight }]}>
-      <View  style={tw`bg-white h-8 w-8 flex mt-3 items-center justify-center rounded-full`}>
+    <View style={[tw`px-4 `,{backgroundColor:"#060320"}, { height: screenHeight }]}>
+      <View  style={tw`bg-white h-8 w-8 flex mt-10 items-center justify-center rounded-full`}>
       <Entypo  onPress={() => router.push("/")} name="chevron-left" size={24} color="black" />
       </View>
       <Text style={[tw`text-white text-2xl py-3`, {fontFamily: "PoppinsRegular"}]}>Let's get started <MaterialCommunityIcons name="party-popper" size={24} color="#FFD700" /></Text>
