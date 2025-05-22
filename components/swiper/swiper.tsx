@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ScrollView, View, Dimensions, StyleSheet, NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import tw from 'tailwind-react-native-classnames';
 
 const { width } = Dimensions.get('window');
 
@@ -46,7 +47,7 @@ const CustomSwiper: React.FC<SwiperProps> = ({ children, showIndicators = true, 
               key={index}
               style={[
                 styles.indicator,
-                index === currentIndex && styles.activeIndicator
+                index === currentIndex ? tw`bg-green-900` : tw`bg-gray-800`,
               ]}
             />
           ))}
