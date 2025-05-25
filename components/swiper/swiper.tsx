@@ -47,7 +47,7 @@ const CustomSwiper: React.FC<SwiperProps> = ({ children, showIndicators = true, 
               key={index}
               style={[
                 styles.indicator,
-                index === currentIndex ? tw`bg-green-900` : tw`bg-gray-800`,
+                index === currentIndex ? tw`bg-green-900` : tw`bg-gray-700`,
               ]}
             />
           ))}
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: 10,
+    bottom: 40,
     left: 0,
     right: 0,
   },
