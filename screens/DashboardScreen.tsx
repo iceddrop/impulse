@@ -140,7 +140,7 @@ const DashboardScreen = () => {
           </Text>
           <Text
             style={[
-              darkMode ? tw`text-gray-400 text-md` : tw` text-black text-md`,
+              darkMode ? tw`text-gray-400 text-base` : tw` text-black text-base`,
               { fontFamily: "PoppinsRegular" },
             ]}
           >
@@ -155,7 +155,7 @@ const DashboardScreen = () => {
         <View
           style={
             darkMode
-              ? tw`bg-gray-700 h-12 w-12 flex items-center justify-center rounded-full`
+              ? tw`bg-gray-900 h-12 w-12 flex items-center justify-center rounded-full`
               : tw`bg-green-500 h-12 w-12 flex items-center justify-center rounded-full`
           }
         >
@@ -438,7 +438,7 @@ const DashboardScreen = () => {
                     ]}
                   >
                     <Text
-                      style={[tw`text-bold`, { fontFamily: "PoppinsBold" }]}
+                      style={[tw`font-bold`, { fontFamily: "PoppinsBold" }]}
                     >
                       9.1%
                     </Text>{" "}
@@ -450,7 +450,7 @@ const DashboardScreen = () => {
           />
         </View>
       </View>
-      <Text style={[darkMode ? tw`text-gray-200 text-lg mt-10 px-4 bg-gray-700 py-2 mx-2 rounded-t-lg` : tw`text-gray-600 text-lg mt-10 px-4 bg-white py-2 mx-2 rounded-t-lg`, {fontFamily: "PoppinsRegular"}]}>Recent Activities</Text>
+      <Text style={[darkMode ? tw`text-gray-200 text-lg mt-10 px-4 bg-gray-900 py-2 mx-2 rounded-t-lg` : tw`text-gray-600 text-lg mt-10 px-4 bg-white py-2 mx-2 rounded-t-lg`, {fontFamily: "PoppinsRegular"}]}>Recent Activities</Text>
     </>
   );
 
@@ -460,7 +460,7 @@ const DashboardScreen = () => {
         data={sampleDataThree}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={darkMode ? tw`flex  bg-gray-700 flex-row justify-between items-center px-4 py-2 mx-2` : tw`flex  bg-white flex-row justify-between items-center px-4 py-2 mx-2`}>
+          <View style={darkMode ? tw`flex  bg-gray-900 flex-row justify-between items-center px-4 py-2 mx-2` : tw`flex  bg-white flex-row justify-between items-center px-4 py-2 mx-2`}>
             <View style={tw`flex flex-row items-center`}>
               <View style={tw`flex items-center justify-center`}>
                 <Image
@@ -494,7 +494,7 @@ const DashboardScreen = () => {
         ]}
       >
         <Fontisto
-          style={tw`text-extrabold`}
+          style={tw`font-extrabold`}
           name="plus-a"
           size={20}
           color="white"

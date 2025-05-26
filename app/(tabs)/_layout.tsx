@@ -14,7 +14,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: darkMode ? "#166534" : "#166534",
         tabBarInactiveTintColor: darkMode ? "#aaa" : "#888",
         tabBarStyle: {
-          backgroundColor: darkMode ? "#1F2937" : "whitesmoke",
+          backgroundColor: darkMode ? "#374151" : "whitesmoke",
           height: 70,
           borderTopWidth: 0,
         },
