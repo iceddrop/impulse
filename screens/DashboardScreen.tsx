@@ -18,10 +18,12 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useState } from "react";
 import CustomSlider from "@/components/slider/slider";
 import Entypo from "@expo/vector-icons/Entypo";
+import { useRouter } from "expo-router";
 
-const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+
 
 const DashboardScreen = () => {
+  const router = useRouter();
   const { darkMode } = useTheme();
   const [showBalance, setShowBalance] = useState(false);
 
@@ -124,7 +126,7 @@ const DashboardScreen = () => {
     <>
       <View
         style={[
-          tw`flex-1 flex-row items-center justify-between px-4 py-2 mt-10`,
+          tw`flex-1 flex-row items-center justify-between px-3 pb-2 mt-11`,
         ]}
       >
         <View>
@@ -322,8 +324,9 @@ const DashboardScreen = () => {
           <CustomSlider
             data={sampleData}
             renderItem={({ item }) => (
-              <View
+              <TouchableOpacity
                 style={[tw`p-2 flex flex-col justify-between`, styles.card]}
+                onPress={() => router.push("/ImpulseBank")}
               >
                 <View style={tw`flex flex-row justify-end`}>
                   <View style={tw`bg-green-800 px-4 py-1 rounded-3xl`}>
@@ -348,7 +351,7 @@ const DashboardScreen = () => {
                     {item.desc}
                   </Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             )}
           />
         </View>

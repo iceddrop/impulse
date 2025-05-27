@@ -93,7 +93,7 @@ const ProfileScreen = () => {
           </View>
           <Switch value={darkMode} onValueChange={toggleTheme} style={tw`mt-4`} />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
@@ -108,7 +108,7 @@ const ProfileScreen = () => {
             color="gray"
           />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
@@ -123,7 +123,7 @@ const ProfileScreen = () => {
             color="gray"
           />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
@@ -185,7 +185,7 @@ const ProfileScreen = () => {
           </View>
           <Switch value={darkMode} onValueChange={toggleTheme} style={tw`mt-4`} />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
@@ -200,7 +200,7 @@ const ProfileScreen = () => {
             color="gray"
           />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
@@ -215,7 +215,7 @@ const ProfileScreen = () => {
             color="gray"
           />
         </View>
-             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>}>
+             <View style={darkMode ? tw`flex flex-row border-b border-gray-800 items-center justify-between p-4` : tw`flex flex-row border-b border-gray-100 items-center justify-between p-4`}>
           <View style={tw`flex flex-row items-center`}>
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
