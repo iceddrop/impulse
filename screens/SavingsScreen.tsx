@@ -3,10 +3,11 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import tw from "tailwind-react-native-classnames";
 import { useFonts } from "expo-font";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useTheme } from "@/context/ThemeContext";
 import { useState } from "react";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
+import { useTabStore } from "@/store/store";
 const SavingsScreen = () => {
 
   const [fontsLoaded] = useFonts({
@@ -17,6 +18,10 @@ const SavingsScreen = () => {
   const { darkMode } = useTheme();
 
   const [showBalance, setShowBalance] = useState(false);
+
+  const router = useRouter();
+
+  const {setActiveTab} = useTabStore();
   return (
     <ScrollView style={[tw`pt-12 px-4`, {backgroundColor: darkMode ? "#1F2937" : "whitesmoke"}]}>
       <View style={tw`flex flex-row items-center justify-end w-full`}>
@@ -91,8 +96,9 @@ const SavingsScreen = () => {
       <View style={tw`mt-6`}>
         <Text style={[tw`text-gray-400 py-2`,{fontFamily: "PoppinsRegular"}]}>Strict Savings Plans</Text>
         <View style={tw`flex-wrap flex-row justify-between mt-2`}>
-          <View
+          <TouchableOpacity
             style={[tw`p-2 flex flex-col justify-between`, styles.card]}
+            onPress={() => {router.push("/ImpulseBank") ; setActiveTab("Savings")}}
           >
             <View style={tw`flex flex-row justify-end`}>
               <View style={tw`bg-green-800 px-4 py-1 rounded-3xl`}>
@@ -117,7 +123,7 @@ const SavingsScreen = () => {
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, impedit!
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
           <View
             style={[tw`p-2 flex flex-col justify-between`, styles.card]}
           >

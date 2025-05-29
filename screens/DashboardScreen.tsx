@@ -19,6 +19,7 @@ import { useState } from "react";
 import CustomSlider from "@/components/slider/slider";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useRouter } from "expo-router";
+import { useTabStore } from "@/store/store";
 
 
 
@@ -26,12 +27,13 @@ const DashboardScreen = () => {
   const router = useRouter();
   const { darkMode } = useTheme();
   const [showBalance, setShowBalance] = useState(false);
+  const {activeTab, setActiveTab} = useTabStore();
 
   const sampleData = [
     {
       plan: "ImpulseBank",
       goal: "SETUP",
-      desc: "lorem ipsum dolor sit amet, consectetur adipiscing",
+      desc: "lorem ipsum dolor sit amet, consectetur adipiscing"
     },
     {
       plan: "TightLock",
@@ -326,7 +328,7 @@ const DashboardScreen = () => {
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={[tw`p-2 flex flex-col justify-between`, styles.card]}
-                onPress={() => router.push("/ImpulseBank")}
+                onPress={() => {router.push("/ImpulseBank") ; setActiveTab("Savings")}}
               >
                 <View style={tw`flex flex-row justify-end`}>
                   <View style={tw`bg-green-800 px-4 py-1 rounded-3xl`}>
