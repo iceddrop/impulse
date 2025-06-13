@@ -19,6 +19,7 @@ import tw from "tailwind-react-native-classnames";
 import { TextInput } from "react-native";
 import { useFonts } from "expo-font";
 import { TouchableOpacity } from "react-native";
+import axios from "axios";
 
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 20 },
@@ -55,6 +56,19 @@ const SetPinScreen = () => {
   });
 
     const router = useRouter();
+
+      const verifyOtp = async () => {
+        const response = await axios.post("http://localhost:3000/auth/verify-otp", {
+          email: "devicedropp@gmail.com",
+          otp: "223394"
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        console.log(response);
+        router.push("/Login")
+      }
   return (
     <View style={[tw`px-4 bg-white`, { height: "100%" }]}>
       <View
@@ -99,7 +113,7 @@ const SetPinScreen = () => {
         />
         <TouchableOpacity
           style={tw`bg-green-700 py-3 rounded-md mt-4`}
-          onPress={() => router.push("/Login")}  
+          onPress={() => verifyOtp()}  
         >
           <Text
             style={[
