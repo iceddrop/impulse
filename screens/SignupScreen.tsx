@@ -5,14 +5,17 @@ import Entypo from '@expo/vector-icons/Entypo';
 import tw from "tailwind-react-native-classnames";
 import { useFonts } from "expo-font";
 import { useRouter } from "expo-router";
-import axios from "axios";
 import { SignUpData } from "../types/type";
 import { ScrollView } from "react-native";
 import { validateSignupForm } from "@/utils/utils";
 import { backendApi } from "@/api/axiosInstance";
+import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from "@/context/AuthContext";
 const SignupScreen = () => {
 
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
+
+  const { login } = useAuth();
 
   const [requestErr, setRequestErr] = useState<string | null>(null);
 
@@ -51,7 +54,6 @@ const SignupScreen = () => {
           },
         })
 
-
         if (response.status === 201 || response.status === 200) {
           const responseTwo = await backendApi.post("/auth/request-otp", {
             email: signUpData?.email
@@ -71,7 +73,11 @@ const SignupScreen = () => {
         return;
       }
     } catch (error: any) {
-      setRequestErr(error.message || "An error occurred during sign up");
+      if (error.message === "Request failed with status code 400") {
+        toast.error("Credentials submitted already in use or omitted")
+      }
+      // setRequestErr(error.message || "An error occurred during sign up");
+      // console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -79,6 +85,7 @@ const SignupScreen = () => {
 
   return (
     <ScrollView style={[tw`px-4 `, { backgroundColor: "#111827" }, { height: screenHeight }]}>
+      <ToastContainer />
       <View style={tw`bg-white h-8 w-8 flex mt-10 items-center justify-center rounded-full`}>
         <Entypo onPress={() => router.push("/")} name="chevron-left" size={24} color="black" />
       </View>

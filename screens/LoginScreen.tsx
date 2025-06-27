@@ -9,18 +9,21 @@ import {
   Dimensions,
   Text,
   TextInput,
-  Touchable,
   TouchableOpacity,
   View,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { validateLoginForm } from "@/utils/utils";
+import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from "@/context/AuthContext";
 
 const LoginScreen = () => {
   const [fontsLoaded] = useFonts({
     PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
   });
+
+  const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
 
@@ -33,7 +36,8 @@ const LoginScreen = () => {
 
   const validateLogin = validateLoginForm(loginData);
 
-  const login = async () => {
+
+  const loginUser = async () => {
     try {
       setIsLoading(true);
       if (Object.keys(validateLogin).length === 0) {
@@ -45,13 +49,25 @@ const LoginScreen = () => {
             'Content-Type': 'application/json',
           },
         })
-        console.log(response)
+
+        login({
+          id: response.data.id,
+          email: response.data.email,
+          phonenumber: response.data.phonenumber,
+          name: response.data.name
+        },
+          response.data.token
+        )
         router.push("/Dashboard")
       }
     } catch (error: any) {
-      if (error.code === "ERR_BAD_REQUEST") {
-        setRequestErr('Wrong email or password');
-      } else { setRequestErr(error.message || "An error occurred during login"); }
+      if (error.message === "Request failed with status code 400" || "Request failed with status code 401") {
+        toast.error("Wrong email or password")
+        // setRequestErr('Wrong email or password');
+      } else {
+        toast.error(error.message)
+        setRequestErr(error.message || "An error occurred during login");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -69,6 +85,7 @@ const LoginScreen = () => {
           color="gray"
         />
       </View>
+      <ToastContainer />
       <Text
         style={[tw`text-2xl pt-4 text-white`, { fontFamily: "PoppinsRegular" }]}
       >
@@ -79,7 +96,7 @@ const LoginScreen = () => {
       </Text>
 
       <Text style={[tw`text-white pt-2`, { fontFamily: "PoppinsRegular" }]}>
-        Phone number
+        Email
       </Text>
       <TextInput
         placeholder="johndoe@gmail.com"
@@ -105,7 +122,7 @@ const LoginScreen = () => {
       />
       <Text>{validateLogin.password && <Text style={tw`text-red-500`}>{validateLogin.password}</Text>}</Text>
       <TouchableOpacity
-        onPress={() => login()}
+        onPress={() => loginUser()}
         style={tw`bg-green-500 mt-4 h-12 rounded-md items-center justify-center`}
       >{isLoading ?
         <ActivityIndicator size="small" color="white" /> :

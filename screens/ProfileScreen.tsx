@@ -3,14 +3,21 @@ import Entypo from "@expo/vector-icons/Entypo";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useFonts } from "expo-font";
-import { Dimensions, ScrollView, Switch, View } from "react-native";
+import {  ScrollView, Switch, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useRouter } from "expo-router";
+import { useTabStore } from "@/store/store";
+import { useAuth } from "@/context/AuthContext";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const ProfileScreen = () => {
   const { darkMode, toggleTheme } = useTheme();
+  const router = useRouter();
+  const {activeTab, setActiveTab} = useTabStore();
+  const {user, logout} = useAuth();
 
   const [fontsLoaded] = useFonts({
     PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
@@ -22,7 +29,7 @@ const ProfileScreen = () => {
       <View style={tw`flex flex-row justify-between items-center `}>
         <View>
           <Text style={[darkMode ? tw`text-xl text-white` : tw`text-xl text-black`, { fontFamily: "PoppinsBold" }]}>My Account,</Text>
-          <Text style={[darkMode ? tw` text-gray-100` : tw`text-gray-400`, { fontFamily: "PoppinsReguar" }]}>Tomiwa Ibikunle</Text>
+          <Text style={[darkMode ? tw` text-gray-100` : tw`text-gray-400`, { fontFamily: "PoppinsReguar" }]}>{user?.name}</Text>
         </View>
         <View
           style={
@@ -100,7 +107,7 @@ const ProfileScreen = () => {
             >
              <Ionicons name="person" size={20} color="gray" />
             </View>
-            <Text style={[darkMode ? tw`text-white ml-2` : tw`text-black ml-2`]}>My Account Settings</Text>
+            <TouchableOpacity  onPress={() => {router.push("/ProfileSetting") ; setActiveTab("Profile")}} style={[darkMode ? tw`text-white ml-2` : tw`text-black ml-2`]}>My Account Settings</TouchableOpacity>
           </View>
           <Entypo
             name="chevron-right"
@@ -235,9 +242,9 @@ const ProfileScreen = () => {
             <View
               style={tw`bg-gray-200 h-6 w-6 flex  items-center justify-center rounded-full`}
             >
-             <FontAwesome name="percent" size={20} color="gray" />
+             <AntDesign name="logout" size={20} color="gray" />
             </View>
-            <Text style={[darkMode ? tw`text-white ml-2` : tw`text-black ml-2`]}>Today's Rates</Text>
+            <TouchableOpacity onPress={() => logout()} style={[darkMode ? tw`text-white ml-2` : tw`text-black ml-2`]}>Signout</TouchableOpacity>
           </View>
           <Entypo
             name="chevron-right"

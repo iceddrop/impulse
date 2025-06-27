@@ -15,19 +15,22 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import CustomSwiper from "@/components/swiper/swiper";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomSlider from "@/components/slider/slider";
 import Entypo from "@expo/vector-icons/Entypo";
 import { useRouter } from "expo-router";
 import { useTabStore } from "@/store/store";
+import { useAuth } from "@/context/AuthContext";
 
 
 
 const DashboardScreen = () => {
+  const {user} = useAuth();
   const router = useRouter();
   const { darkMode } = useTheme();
   const [showBalance, setShowBalance] = useState(false);
   const {activeTab, setActiveTab} = useTabStore();
+ 
 
   const sampleData = [
     {
@@ -140,7 +143,7 @@ const DashboardScreen = () => {
               { fontFamily: "PoppinsBold" },
             ]}
           >
-            Hello Tomiwa
+            Hello {user?.name.trim().split(/\s+/)[0]}
           </Text>
           <Text
             style={[

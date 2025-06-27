@@ -49,3 +49,10 @@ export const validateLoginForm = (formData: any) => {
     
     return errors;
 };
+
+export const formatName = (name: any) => {
+  if (name.includes(" ")){
+    name.split(" ")
+  }
+  return name;
+}
