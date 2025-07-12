@@ -9,6 +9,7 @@ import { backendApi } from "@/api/axiosInstance";
 import { useAuth } from "@/context/AuthContext";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const UpdateProfileScreen = () => {
@@ -42,7 +43,8 @@ const UpdateProfileScreen = () => {
                     'Content-Type': 'application/json',
                 }
             })
-            setUser(response.data)
+            setUser(response.data);
+            await AsyncStorage.setItem('user', JSON.stringify(response.data));
         } catch (err) {
             console.log(err)
         } finally {
@@ -55,7 +57,11 @@ const UpdateProfileScreen = () => {
     useEffect(() => {
         const getuserDetails = async () => {
             try {
-                const response = await backendApi.get(`/user/${user?.id}`)
+                const response = await backendApi.get(`/user/${user?.id}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
                 console.log(response)
                 setUserDetails(response.data)
             } catch (err) {
@@ -72,11 +78,11 @@ const UpdateProfileScreen = () => {
                     style={tw`bg-gray-400 h-6 w-6 flex  items-center justify-center rounded-full px-2`}
                 >
                     <TouchableOpacity onPress={() => router.push('/ProfileSetting')}>
-                    <Entypo
-                        name="chevron-left"
-                        size={22}
-                        color={darkMode ? "black" : "white"}
-                    />
+                        <Entypo
+                            name="chevron-left"
+                            size={22}
+                            color={darkMode ? "black" : "white"}
+                        />
                     </TouchableOpacity>
                 </View>
                 <Image source={require("../assets/images/logo.png")} style={tw` w-28 h-28 relative right-6`} />

@@ -1,5 +1,13 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+
 interface User {
   id: number;
   name: string;
@@ -10,8 +18,8 @@ interface User {
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  login: (user: User, token: string) => void;
-  logout: () => void;
+  login: (user: User, token: string) => Promise<void>;
+  logout: () => Promise<void>;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
 
@@ -22,19 +30,45 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  const login = (userData: User, authToken: string) => {
+  useEffect(() => {
+    const loadUserData = async () => {
+      try {
+        const storedUser = await AsyncStorage.getItem('user');
+        const storedToken = await AsyncStorage.getItem('token');
+
+        if (storedUser && storedToken) {
+          setUser(JSON.parse(storedUser));
+          setToken(storedToken);
+        }
+      } catch (err) {
+        console.error('Failed to load user from AsyncStorage', err);
+      }
+    };
+
+    loadUserData();
+  }, []);
+
+  const login = async (userData: User, authToken: string) => {
     setUser(userData);
     setToken(authToken);
+
+   
+    await AsyncStorage.setItem('user', JSON.stringify(userData));
+    await AsyncStorage.setItem('token', authToken);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
     setToken(null);
-    router.push("/Login")
+
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem('token');
+
+    router.push('/Login');
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, token, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

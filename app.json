@@ -8,24 +8,29 @@
     "scheme": "impulse",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-     "androidStatusBar": {
+    "androidStatusBar": {
       "backgroundColor": "transparent",
       "translucent": true
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.devicedrop.impulse",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.devicedrop.impulse"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/logo.png",
-        "imageWidth": 200
+      "imageWidth": 200
     },
     "plugins": [
       "expo-router",

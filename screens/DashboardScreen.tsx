@@ -30,7 +30,7 @@ const DashboardScreen = () => {
   const { darkMode } = useTheme();
   const [showBalance, setShowBalance] = useState(false);
   const {activeTab, setActiveTab} = useTabStore();
- 
+  console.log(user)
 
   const sampleData = [
     {
