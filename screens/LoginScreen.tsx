@@ -14,7 +14,6 @@ import {
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { validateLoginForm } from "@/utils/utils";
-import { ToastContainer, toast } from 'react-toastify';
 import { useAuth } from "@/context/AuthContext";
 
 const LoginScreen = () => {
@@ -62,10 +61,10 @@ const LoginScreen = () => {
       }
     } catch (error: any) {
       if (error.message === "Request failed with status code 400" || "Request failed with status code 401") {
-        toast.error("Wrong email or password")
+        // toast.error("Wrong email or password")
         // setRequestErr('Wrong email or password');
       } else {
-        toast.error(error.message)
+        // toast.error(error.message)
         setRequestErr(error.message || "An error occurred during login");
       }
     } finally {
@@ -85,7 +84,6 @@ const LoginScreen = () => {
           color="gray"
         />
       </View>
-      <ToastContainer />
       <Text
         style={[tw`text-2xl pt-4 text-white`, { fontFamily: "PoppinsRegular" }]}
       >

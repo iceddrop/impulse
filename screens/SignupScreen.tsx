@@ -9,7 +9,7 @@ import { SignUpData } from "../types/type";
 import { ScrollView } from "react-native";
 import { validateSignupForm } from "@/utils/utils";
 import { backendApi } from "@/api/axiosInstance";
-import { ToastContainer, toast } from 'react-toastify';
+import Toast from "react-native-toast-message";
 import { useAuth } from "@/context/AuthContext";
 const SignupScreen = () => {
 
@@ -73,9 +73,15 @@ const SignupScreen = () => {
         return;
       }
     } catch (error: any) {
-      if (error.message === "Request failed with status code 400") {
-        toast.error("Credentials submitted already in use or omitted")
-      }
+      
+        console.log("1")
+        // toast.error("Credentials submitted already in use or omitted")
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Credentials submitted already in use or omitted'
+        });
+    
       // setRequestErr(error.message || "An error occurred during sign up");
       // console.log(error)
     } finally {
@@ -85,7 +91,7 @@ const SignupScreen = () => {
 
   return (
     <ScrollView style={[tw`px-4 `, { backgroundColor: "#111827" }, { height: screenHeight }]}>
-      <ToastContainer />
+      <Toast />
       <View style={tw`bg-white h-8 w-8 flex mt-10 items-center justify-center rounded-full`}>
         <Entypo onPress={() => router.push("/")} name="chevron-left" size={24} color="black" />
       </View>

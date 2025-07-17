@@ -22,7 +22,7 @@ import { TouchableOpacity } from "react-native";
 import axios from "axios";
 import { backendApi } from "@/api/axiosInstance";
 import { validateOtpForm } from "@/utils/utils";
-import { ToastContainer, toast } from 'react-toastify';
+import Toast from "react-native-toast-message";
 
 const styles = StyleSheet.create({
     root: { flex: 1, padding: 20 },
@@ -81,8 +81,12 @@ const VerifyOtpScreen = () => {
         }
         } catch (error: any) {
                if (error.message === "Request failed with status code 400") {
-                    toast.error("Check your OTP and try again")
-                  }
+                   Toast.show({
+                       type: 'error',
+                       text1: 'Error',
+                       text2: 'Check your OTP and try again'
+                   });
+               }
             //  setRequestErr(error.message || "An error occurred during sign up");
         } finally {
              setIsLoading(false);
@@ -102,7 +106,7 @@ console.log(validateOtp)
                     color="gray"
                 />
             </View>
-            <ToastContainer/>
+            <Toast/>
             <Text style={[tw`text-2xl pt-4`, { fontFamily: "PoppinsRegular" }]}>
                 Verify your OTP
             </Text>
