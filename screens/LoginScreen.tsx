@@ -15,6 +15,7 @@ import {
 import tw from "tailwind-react-native-classnames";
 import { validateLoginForm } from "@/utils/utils";
 import { useAuth } from "@/context/AuthContext";
+import Toast from "react-native-toast-message";
 
 const LoginScreen = () => {
   const [fontsLoaded] = useFonts({
@@ -40,7 +41,7 @@ const LoginScreen = () => {
     try {
       setIsLoading(true);
       if (Object.keys(validateLogin).length === 0) {
-        const response = await axios.post("http://localhost:3000/auth/login", {
+        const response = await axios.post("https://impluse-backend.onrender.com/auth/login", {
           email: loginData.email,
           password: loginData.password
         }, {
@@ -63,9 +64,19 @@ const LoginScreen = () => {
       if (error.message === "Request failed with status code 400" || "Request failed with status code 401") {
         // toast.error("Wrong email or password")
         // setRequestErr('Wrong email or password');
+            Toast.show({
+                type: 'error',
+                text1: 'Error',
+                text2: 'Wrong email or password'
+              });
       } else {
         // toast.error(error.message)
-        setRequestErr(error.message || "An error occurred during login");
+        // setRequestErr(error.message || "An error occurred during login");
+            Toast.show({
+                type: 'error',
+                text1: 'Error',
+                text2: error.message || "An error occurred during login"
+              });
       }
     } finally {
       setIsLoading(false);

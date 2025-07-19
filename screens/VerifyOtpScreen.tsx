@@ -1,6 +1,6 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import { router, useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ActivityIndicator,
     Platform,
@@ -23,6 +23,7 @@ import axios from "axios";
 import { backendApi } from "@/api/axiosInstance";
 import { validateOtpForm } from "@/utils/utils";
 import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
     root: { flex: 1, padding: 20 },
@@ -46,7 +47,16 @@ const styles = StyleSheet.create({
 const CELL_COUNT = 6;
 
 const VerifyOtpScreen = () => {
-    const { email } = useLocalSearchParams();
+    const [email, setEmail] = useState<string | null>(null);
+    useEffect(() => {
+        const fetchEmail = async () => {
+            const storedEmail = await AsyncStorage.getItem("pendingEmail");
+            console.log(storedEmail);
+            setEmail(storedEmail);
+        };
+        fetchEmail();
+    }, []);
+    console.log(email)
     const [value, setValue] = useState<string | undefined>("");
     const [requestErr, setRequestErr] = useState<string | null>(null);
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });

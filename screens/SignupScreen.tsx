@@ -11,6 +11,7 @@ import { validateSignupForm } from "@/utils/utils";
 import { backendApi } from "@/api/axiosInstance";
 import Toast from "react-native-toast-message";
 import { useAuth } from "@/context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SignupScreen = () => {
 
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
@@ -54,34 +55,30 @@ const SignupScreen = () => {
           },
         })
 
-        if (response.status === 201 || response.status === 200) {
-          const responseTwo = await backendApi.post("/auth/request-otp", {
-            email: signUpData?.email
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
+        // if (response.status === 201 || response.status === 200) {
+        //   const responseTwo = await backendApi.post("/auth/request-otp", {
+        //     email: signUpData?.email
+        //   }, {
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //   });
 
-        }
-        router.push({
-          pathname: '/VerifyOtp',
-          params: {
-            email: response.data.email
-          }
-        });
+        // }
+        await AsyncStorage.setItem("pendingEmail", signUpData?.email);
+        router.push("/VerifyOtp");
         return;
       }
     } catch (error: any) {
-      
-        console.log("1")
-        // toast.error("Credentials submitted already in use or omitted")
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'Credentials submitted already in use or omitted'
-        });
-    
+
+      console.log("1")
+      // toast.error("Credentials submitted already in use or omitted")
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Credentials submitted already in use or omitted'
+      });
+
       // setRequestErr(error.message || "An error occurred during sign up");
       // console.log(error)
     } finally {
