@@ -54,7 +54,8 @@ const LoginScreen = () => {
           id: response.data.id,
           email: response.data.email,
           phonenumber: response.data.phonenumber,
-          name: response.data.name
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
         },
           response.data.token
         )

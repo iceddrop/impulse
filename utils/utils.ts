@@ -1,10 +1,6 @@
 export const validateSignupForm = (formData: any) => {
   const errors: any = {};
 
-  if (!formData.name) {
-    errors.name = "Please enter your name";
-  }
-
   if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
     errors.email = "Email is invalid";
   }
@@ -21,6 +17,19 @@ export const validateSignupForm = (formData: any) => {
     errors.confirmPassword = "Passwords do not match";
   }
 
+  return errors;
+};
+
+export const validateSignupTwoForm = (formData: any) => {
+  const errors: any = {};
+
+  if (!formData.last_name) {
+    errors.last_name = "Please enter your last name";
+  }
+
+   if (!formData.first_name) {
+    errors.first_name = "Please enter your first name";
+  }
   return errors;
 };
 

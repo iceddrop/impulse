@@ -143,7 +143,7 @@ const DashboardScreen = () => {
               { fontFamily: "PoppinsBold" },
             ]}
           >
-            Hello {user?.name.trim().split(/\s+/)[0]}
+            Hello {user?.first_name}
           </Text>
           <Text
             style={[

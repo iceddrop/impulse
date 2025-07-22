@@ -29,7 +29,7 @@ const ProfileScreen = () => {
       <View style={tw`flex flex-row justify-between items-center `}>
         <View>
           <Text style={[darkMode ? tw`text-xl text-white` : tw`text-xl text-black`, { fontFamily: "PoppinsBold" }]}>My Account,</Text>
-          <Text style={[darkMode ? tw` text-gray-100` : tw`text-gray-400`, { fontFamily: "PoppinsReguar" }]}>{user?.name}</Text>
+          <Text style={[darkMode ? tw` text-gray-100` : tw`text-gray-400`, { fontFamily: "PoppinsReguar" }]}>{user?.first_name} {user?.last_name}</Text>
         </View>
         <View
           style={

@@ -88,8 +88,12 @@ const UpdateProfileScreen = () => {
                 <Image source={require("../assets/images/logo.png")} style={tw` w-28 h-28 relative right-6`} />
                 <Text style={[darkMode ? tw`text-xl text-white pt-4 pb-2 px-2` : tw`text-xl text-black pt-4 pb-2 px-2`, { fontFamily: "PoppinsBold" }]}>My Profile</Text>
                 <View style={darkMode ? tw`flex flex-row justify-between border-solid border-b border-gray-400 py-4 px-3` : tw`flex flex-row justify-between border-solid border-b border-gray-700 py-4 px-3`}>
-                    <Text style={darkMode ? tw`text-gray-100` : tw`text-gray-600`}>Name</Text>
-                    <Text style={darkMode ? tw`text-white` : tw`text-black`}>{userDetails?.name}</Text>
+                    <Text style={darkMode ? tw`text-gray-100` : tw`text-gray-600`}>First Name</Text>
+                    <Text style={darkMode ? tw`text-white` : tw`text-black`}>{userDetails?.first_name}</Text>
+                </View>
+                <View style={darkMode ? tw`flex flex-row justify-between border-solid border-b border-gray-400 py-4 px-3` : tw`flex flex-row justify-between border-solid border-b border-gray-700 py-4 px-3`}>
+                    <Text style={darkMode ? tw`text-gray-100` : tw`text-gray-600`}>Last Name</Text>
+                    <Text style={darkMode ? tw`text-white` : tw`text-black`}>{userDetails?.last_name}</Text>
                 </View>
                 <View style={darkMode ? tw`flex flex-row justify-between border-solid border-b border-gray-400 py-4 px-3` : tw`flex flex-row justify-between border-solid border-b border-gray-700 py-4 px-3`}>
                     <Text style={darkMode ? tw`text-gray-100` : tw`text-gray-600`}>Email</Text>
@@ -113,13 +117,26 @@ const UpdateProfileScreen = () => {
                                 Name
                             </Text>
                             <TextInput
-                                placeholder="john doe"
+                                placeholder="john"
                                 placeholderTextColor="white"
                                 style={[
                                     darkMode ? tw` h-12 rounded-md px-4 mb-4 text-white bg-gray-700 mt-3 mb-2` : tw`h-12 rounded-md px-4 mb-4 text-white bg-gray-600 mt-3 mb-2`
                                 ]}
                                 onChangeText={(text) =>
-                                    setNewDetails({ ...newDetails, name: text })
+                                    setNewDetails({ ...newDetails, first_name: text })
+                                }
+                            />
+                            <Text style={[darkMode ? tw`text-white pt-2` : tw` text-black pt-2`, { fontFamily: "PoppinsRegular" }]}>
+                                Last Name
+                            </Text>
+                            <TextInput
+                                placeholder="doe"
+                                placeholderTextColor="white"
+                                style={[
+                                    darkMode ? tw` h-12 rounded-md px-4 mb-4 text-white bg-gray-700 mt-3 mb-2` : tw`h-12 rounded-md px-4 mb-4 text-white bg-gray-600 mt-3 mb-2`
+                                ]}
+                                onChangeText={(text) =>
+                                    setNewDetails({ ...newDetails, last_name: text })
                                 }
                             />
                             <Text style={[darkMode ? tw`text-white pt-2` : tw` text-black pt-2`, { fontFamily: "PoppinsRegular" }]}>

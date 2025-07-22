@@ -12,9 +12,13 @@ import { backendApi } from "@/api/axiosInstance";
 import Toast from "react-native-toast-message";
 import { useAuth } from "@/context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSignupStore } from "@/store/store";
 const SignupScreen = () => {
+  const { setFormData } = useSignupStore();
 
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const { login } = useAuth();
 
@@ -27,65 +31,29 @@ const SignupScreen = () => {
 
   const router = useRouter();
 
-  const [signUpData, setSignUpData] = useState<SignUpData>({
-    name: "",
+  const [signUpData, setSignUpData] = useState({
     email: "",
     phonenumber: "",
     password: "",
-    confirmPassword: "",
-    referralCode: ""
+    confirmPassword: ""
   });
 
-  const validateForm = validateSignupForm(signUpData);
+const validateForm = () => validateSignupForm(signUpData);
 
-  const token = 'forbiddenlandofbad'
+    const handleNext = async () => {
 
-  const signUp = async () => {
-    try {
-      setIsLoading(true);
-      if (Object.keys(validateForm).length === 0) {
-        const response = await backendApi.post("/user/register", {
-          name: signUpData?.name,
-          email: signUpData?.email,
-          password: signUpData?.password,
-          phonenumber: signUpData?.phonenumber
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
 
-        // if (response.status === 201 || response.status === 200) {
-        //   const responseTwo = await backendApi.post("/auth/request-otp", {
-        //     email: signUpData?.email
-        //   }, {
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //   });
-
-        // }
-        await AsyncStorage.setItem("pendingEmail", signUpData?.email);
-        router.push("/VerifyOtp");
-        return;
-      }
-    } catch (error: any) {
-
-      console.log("1")
-      // toast.error("Credentials submitted already in use or omitted")
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Credentials submitted already in use or omitted'
-      });
-
-      // setRequestErr(error.message || "An error occurred during sign up");
-      // console.log(error)
-    } finally {
-      setIsLoading(false);
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+    setIsLoading(true)
+    if (Object.keys(validateForm()).length === 0) {
+      setFormData(signUpData);
+      router.push("/SignupTwo")
     }
-  }
+    setIsLoading(false)
+  };
 
+ 
   return (
     <ScrollView style={[tw`px-4 `, { backgroundColor: "#111827" }, { height: screenHeight }]}>
       <Toast />
@@ -95,14 +63,6 @@ const SignupScreen = () => {
       <Text style={[tw`text-white text-2xl py-3`, { fontFamily: "PoppinsRegular" }]}>Let's get started <MaterialCommunityIcons name="party-popper" size={24} color="#FFD700" /></Text>
       <Text style={[tw`text-white`, { fontFamily: "PoppinsRegular" }]}>Register to start saving and investing with Impulse!</Text>
       <View style={tw`my-4`}>
-        <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>First & Last Name</Text>
-        <TextInput
-          placeholder="John Doe"
-          placeholderTextColor="white"
-          style={[tw` h-12 rounded-md px-4  text-white`, { backgroundColor: "#1F2937" }]}
-          onChange={event => setSignUpData({ ...signUpData, name: event.nativeEvent.text })}
-        />
-        <Text>{validateForm.name && <Text style={tw`text-red-500`}>{validateForm.name}</Text>}</Text>
         <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>Email</Text>
         <TextInput
           placeholder="Johndoe@gmail.com"
@@ -110,7 +70,7 @@ const SignupScreen = () => {
           style={[tw` h-12 rounded-md px-4  text-white`, { backgroundColor: "#1F2937" }]}
           onChange={event => setSignUpData({ ...signUpData, email: event.nativeEvent.text })}
         />
-        <Text>{validateForm.email && <Text style={tw`text-red-500`}>{validateForm.email}</Text>}</Text>
+        <Text>{errors.email && <Text style={tw`text-red-500`}>{errors.email}</Text>}</Text>
         <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>Phone number</Text>
         <TextInput
           placeholder="07012345678"
@@ -118,7 +78,7 @@ const SignupScreen = () => {
           style={[tw` h-12 rounded-md px-4  text-white`, { backgroundColor: "#1F2937" }]}
           onChange={event => setSignUpData({ ...signUpData, phonenumber: event.nativeEvent.text })}
         />
-        <Text>{validateForm.phonenumber && <Text style={tw`text-red-500`}>{validateForm.phonenumber}</Text>}</Text>
+        <Text>{errors.phonenumber && <Text style={tw`text-red-500`}>{errors.phonenumber}</Text>}</Text>
         <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>Password</Text>
         <TextInput
           placeholder="********"
@@ -126,7 +86,7 @@ const SignupScreen = () => {
           style={[tw` h-12 rounded-md px-4  text-white`, { backgroundColor: "#1F2937" }]}
           onChange={event => setSignUpData({ ...signUpData, password: event.nativeEvent.text })}
         />
-        <Text>{validateForm.password && <Text style={tw`text-red-500`}>{validateForm.password}</Text>}</Text>
+        <Text>{errors.password && <Text style={tw`text-red-500`}>{errors.password}</Text>}</Text>
         <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>Confirm password</Text>
         <TextInput
           placeholder="********"
@@ -134,20 +94,13 @@ const SignupScreen = () => {
           style={[tw` h-12 rounded-md px-4  text-white`, { backgroundColor: "#1F2937" }]}
           onChange={event => setSignUpData({ ...signUpData, confirmPassword: event.nativeEvent.text })}
         />
-        <Text>{validateForm.confirmPassword && <Text style={tw`text-red-500`}>{validateForm.confirmPassword}</Text>}</Text>
-        <Text style={[tw`text-white py-2`, { fontFamily: "PoppinsRegular" }]}>Referral code(Optional)</Text>
-        <TextInput
-          placeholder="Enter code"
-          placeholderTextColor="white"
-          style={[tw` h-12 rounded-md px-4 mb-4 text-white`, { backgroundColor: "#1F2937" }]}
-          onChange={event => setSignUpData({ ...signUpData, referralCode: event.nativeEvent.text })}
-        />
+        <Text>{errors.confirmPassword && <Text style={tw`text-red-500`}>{errors.confirmPassword}</Text>}</Text>
       </View>
       <TouchableOpacity
         style={tw`bg-green-700 py-3 mb-4  rounded-md `}
-        onPress={() => signUp()}
+        onPress={() => handleNext()}
       >
-        {isLoading ? <ActivityIndicator size="small" color="white" /> : <Text style={[tw`text-white text-center text-lg`, { fontFamily: "PoppinsRegular" }]}>Create an account</Text>}
+        {isLoading ? <ActivityIndicator size="small" color="white" /> : <Text style={[tw`text-white text-center text-lg`, { fontFamily: "PoppinsRegular" }]}>Submit</Text>}
       </TouchableOpacity>
     </ScrollView>
   )
