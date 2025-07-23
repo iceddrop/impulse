@@ -16,7 +16,7 @@ import tw from "tailwind-react-native-classnames";
 import { validateLoginForm } from "@/utils/utils";
 import { useAuth } from "@/context/AuthContext";
 import Toast from "react-native-toast-message";
-
+import { backendApi } from "@/api/axiosInstance";
 const LoginScreen = () => {
   const [fontsLoaded] = useFonts({
     PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
@@ -41,7 +41,7 @@ const LoginScreen = () => {
     try {
       setIsLoading(true);
       if (Object.keys(validateLogin).length === 0) {
-        const response = await axios.post("https://impluse-backend.onrender.com/auth/login", {
+        const response = await backendApi.post("/auth/login", {
           email: loginData.email,
           password: loginData.password
         }, {
