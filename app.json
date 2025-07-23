@@ -24,7 +24,8 @@
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.devicedrop.impulse"
+      "package": "com.devicedrop.impulse",
+      "permissions": ["INTERNET"]
     },
     "web": {
       "bundler": "metro",
