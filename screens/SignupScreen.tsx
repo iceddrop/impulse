@@ -37,6 +37,7 @@ const SignupScreen = () => {
     password: "",
     confirmPassword: ""
   });
+  console.log(signUpData)
 
 const validateForm = () => validateSignupForm(signUpData);
 

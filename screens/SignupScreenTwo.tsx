@@ -41,7 +41,7 @@ const SignupScreenTwo = () => {
         if (Object.keys(validationErrors).length === 0) {
             try {
                 const finalData = { ...formData, ...signUpData };
-                console.log(finalData)
+                console.log("📋 Final Sign Up Data:", finalData);
                 setIsLoading(true);
 
                 const response = await backendApi.post("/user/register", finalData, {
@@ -49,6 +49,7 @@ const SignupScreenTwo = () => {
                         'Content-Type': 'application/json',
                     },
                 })
+                console.log(response)
 
                 // if (response.status === 201 || response.status === 200) {
                 //   const responseTwo = await backendApi.post("/auth/request-otp", {
@@ -68,12 +69,12 @@ const SignupScreenTwo = () => {
 
             } catch (error: any) {
 
-                console.log("1")
+                console.log(error)
                 // toast.error("Credentials submitted already in use or omitted")
                 Toast.show({
                     type: 'error',
                     text1: 'Error',
-                    text2: 'Credentials submitted already in use or omitted'
+                    text2: error?.response?.data?.message
                 });
 
                 // setRequestErr(error.message || "An error occurred during sign up");

@@ -23,6 +23,8 @@ const LoginScreen = () => {
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
   });
 
+  const [errors, setErrors] = useState<any>({});
+
   const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState<boolean | null>(false);
@@ -34,13 +36,15 @@ const LoginScreen = () => {
     password: "",
   });
 
-  const validateLogin = validateLoginForm(loginData);
+  const validateLogin = () => validateLoginForm(loginData);
 
 
   const loginUser = async () => {
     try {
+      const validationErrors = validateLogin();
       setIsLoading(true);
-      if (Object.keys(validateLogin).length === 0) {
+      setErrors(validationErrors);
+      if (Object.keys(validationErrors).length === 0) {
         const response = await backendApi.post("/auth/login", {
           email: loginData.email,
           password: loginData.password
@@ -59,16 +63,19 @@ const LoginScreen = () => {
         },
           response.data.token
         )
+        console.log(response.data.token)
         router.push("/Dashboard")
       }
     } catch (error: any) {
-      if (error.message === "Request failed with status code 400" || "Request failed with status code 401") {
+      console.log(error?.response?.data?.message);
+      console.log(error.status)
+      if (error.status === 400 || 401) {
         // toast.error("Wrong email or password")
         // setRequestErr('Wrong email or password');
             Toast.show({
                 type: 'error',
                 text1: 'Error',
-                text2: 'Wrong email or password'
+                text2: error?.response?.data?.message
               });
       } else {
         // toast.error(error.message)
@@ -76,7 +83,7 @@ const LoginScreen = () => {
             Toast.show({
                 type: 'error',
                 text1: 'Error',
-                text2: error.message || "An error occurred during login"
+                text2: `${error?.response?.data?.message} "An error occurred during login"`
               });
       }
     } finally {
@@ -86,6 +93,7 @@ const LoginScreen = () => {
 
   return (
     <View style={[tw`px-4 bg-gray-900`, { height: screenHeight }]}>
+      <Toast />
       <View
         style={tw`bg-gray-100 h-8 w-8 flex mt-10 items-center justify-center rounded-full`}
       >
@@ -118,7 +126,7 @@ const LoginScreen = () => {
           setLoginData({ ...loginData, email: text })
         }
       />
-      <Text>{validateLogin.email && <Text style={tw`text-red-500`}>{validateLogin.email}</Text>}</Text>
+      <Text>{errors.email && <Text style={tw`text-red-500`}>{errors.email}</Text>}</Text>
       <Text style={[tw`text-white pt-2`, { fontFamily: "PoppinsRegular" }]}>
         Pin
       </Text>
@@ -130,7 +138,7 @@ const LoginScreen = () => {
           setLoginData({ ...loginData, password: text })
         }
       />
-      <Text>{validateLogin.password && <Text style={tw`text-red-500`}>{validateLogin.password}</Text>}</Text>
+      <Text>{errors.password && <Text style={tw`text-red-500`}>{errors.password}</Text>}</Text>
       <TouchableOpacity
         onPress={() => loginUser()}
         style={tw`bg-green-500 mt-4 h-12 rounded-md items-center justify-center`}

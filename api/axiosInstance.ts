@@ -4,7 +4,7 @@ import {BASE_URL} from '@env';
 
 const backendApi: AxiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 200000,
 });
 
 console.log("🌍 Axios Base URL:", backendApi.defaults.baseURL);
@@ -12,7 +12,6 @@ console.log("🌍 Axios Base URL:", backendApi.defaults.baseURL);
 backendApi.interceptors.request.use(
   async (config) => {
     const token = await AsyncStorage.getItem('token');
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }else {
