@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {BASE_URL} from '@env';
+
 
 const backendApi: AxiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'https://impluse-backend.onrender.com',
   timeout: 200000,
 });
 
