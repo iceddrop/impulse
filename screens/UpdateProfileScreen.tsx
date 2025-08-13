@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, Text, TouchableOpacity, View, Modal, StyleSheet, TextInput } from "react-native";
+import { ActivityIndicator, Image, Text, TouchableOpacity, View, Modal, StyleSheet, TextInput, Pressable } from "react-native";
 import CustomTab from "@/components/tab/CustomTab";
 import { useTheme } from "@/context/ThemeContext";
 import tw from "tailwind-react-native-classnames";
@@ -74,17 +74,15 @@ const UpdateProfileScreen = () => {
     return (
         <View style={darkMode ? tw`bg-gray-800 h-full pt-12` : tw`bg-gray-100 h-full pt-12`}>
             <View style={tw`px-3`}>
-                <View
+                 <Pressable onPress={() => router.push('/ProfileSetting')}
                     style={tw`bg-gray-400 h-6 w-6 flex  items-center justify-center rounded-full px-2`}
                 >
-                    <TouchableOpacity onPress={() => router.push('/ProfileSetting')}>
-                        <Entypo
+                    <Entypo
                             name="chevron-left"
                             size={22}
                             color={darkMode ? "black" : "white"}
                         />
-                    </TouchableOpacity>
-                </View>
+                </Pressable>
                 <Image source={require("../assets/images/logo.png")} style={tw` w-28 h-28 relative right-6`} />
                 <Text style={[darkMode ? tw`text-xl text-white pt-4 pb-2 px-2` : tw`text-xl text-black pt-4 pb-2 px-2`, { fontFamily: "PoppinsBold" }]}>My Profile</Text>
                 <View style={darkMode ? tw`flex flex-row justify-between border-solid border-b border-gray-400 py-4 px-3` : tw`flex flex-row justify-between border-solid border-b border-gray-700 py-4 px-3`}>

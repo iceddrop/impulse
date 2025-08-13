@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
+  Pressable,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { useTheme } from "../context/ThemeContext";
@@ -22,31 +23,42 @@ import { useRouter } from "expo-router";
 import { useTabStore } from "@/store/store";
 import { useAuth } from "@/context/AuthContext";
 
+type AppRoutes = "/ImpulseBank" | "/ImpulseNaira" | "/Login" | "/Dashboard";
 
+// Update your sampleData interface
+interface SampleDataItem {
+  plan: string;
+  goal: string;
+  desc: string;
+  route: AppRoutes;
+}
 
 const DashboardScreen = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const { darkMode } = useTheme();
   const [showBalance, setShowBalance] = useState(false);
-  const {activeTab, setActiveTab} = useTabStore();
+  const { activeTab, setActiveTab } = useTabStore();
   console.log(user)
 
-  const sampleData = [
+  const sampleData: SampleDataItem[] = [
     {
-      plan: "ImpulseBank",
+      plan: "Impulse Safe",
       goal: "SETUP",
-      desc: "lorem ipsum dolor sit amet, consectetur adipiscing"
+      desc: "Save your money",
+      route: "/ImpulseBank",
     },
     {
-      plan: "TightLock",
+      plan: "Impulse Lock",
       goal: "HIDEMONEY",
-      desc: "lorem ipsum dolor sit amet, consectetur adipiscing",
+      desc: "Lock your money away",
+      route: "/ImpulseBank",
     },
     {
-      plan: "Target Savings",
-      goal: "NEWGOAL",
-      desc: "lorem ipsum dolor sit amet, consectetur adipiscing",
+      plan: "Impulse Naira",
+      goal: "SETUP",
+      desc: "Recieve and send money",
+      route: "/ImpulseNaira",
     },
   ];
 
@@ -125,6 +137,11 @@ const DashboardScreen = () => {
     PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
     PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
   });
+
+  const handleNavigation = (route: AppRoutes) => {
+    router.push(route);
+    setActiveTab("Savings");
+  };
 
   // Header and all custom sections before the list
   const renderHeader = () => (
@@ -329,16 +346,17 @@ const DashboardScreen = () => {
           <CustomSlider
             data={sampleData}
             renderItem={({ item }) => (
-              <TouchableOpacity
+              <Pressable
+                android_ripple={null}
                 style={[tw`p-2 flex flex-col justify-between`, styles.card]}
-                onPress={() => {router.push("/ImpulseBank") ; setActiveTab("Savings")}}
+                onPress={() => handleNavigation(item.route)}
               >
-                <View style={tw`flex flex-row justify-end`}>
+                <View style={tw`flex flex-row justify-end `}>
                   <View style={tw`bg-green-800 px-4 py-1 rounded-3xl`}>
                     <Text style={tw`text-white`}>{item.goal}</Text>
                   </View>
                 </View>
-                <View>
+                <View style={tw`max-h-16 h-16 pb-1`}>
                   <Text
                     style={[
                       tw`text-base font-extrabold text-green-800`,
@@ -349,14 +367,14 @@ const DashboardScreen = () => {
                   </Text>
                   <Text
                     style={[
-                      darkMode ? tw`text-xs py-1 text-white` : tw`text-black`,
+                      darkMode ? tw`text-xs py-1 text-white ` : tw`h-20 text-black`,
                       { fontFamily: "PoppinsRegular" },
                     ]}
                   >
                     {item.desc}
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </Pressable>
             )}
           />
         </View>
@@ -411,7 +429,7 @@ const DashboardScreen = () => {
                       <Text style={tw`text-lg text-white font-extrabold`}>
                         18.5%
                       </Text>
-                      <Text style={tw`text-xs text-gray-100`}>per annum</Text>
+                      
                     </View>
                   </View>
                 </View>
@@ -458,13 +476,13 @@ const DashboardScreen = () => {
           />
         </View>
       </View>
-      <Text style={[darkMode ? tw`text-gray-200 text-lg mt-10 px-4 bg-gray-900 py-2 mx-2 rounded-t-lg` : tw`text-gray-600 text-lg mt-10 px-4 bg-white py-2 mx-2 rounded-t-lg`, {fontFamily: "PoppinsRegular"}]}>Recent Activities</Text>
+      <Text style={[darkMode ? tw`text-gray-200 text-lg mt-10 px-4 bg-gray-900 py-2 mx-2 rounded-t-lg` : tw`text-gray-600 text-lg mt-10 px-4 bg-white py-2 mx-2 rounded-t-lg`, { fontFamily: "PoppinsRegular" }]}>Recent Activities</Text>
     </>
   );
 
   return (
-      <View style={{ flex: 1, backgroundColor: darkMode ? "#1F2937" : "whitesmoke" }}>
-      <FlatList 
+    <View style={{ flex: 1, backgroundColor: darkMode ? "#1F2937" : "whitesmoke" }}>
+      <FlatList
         data={sampleDataThree}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item }) => (
@@ -477,11 +495,11 @@ const DashboardScreen = () => {
                 />
               </View>
               <View style={tw`ml-2`}>
-                <Text style={[darkMode ? tw`text-white` : tw`text-black`, {fontFamily: "PoppinsRegular"}]}>{item.title}</Text>
-                <Text style={[darkMode ? tw`text-gray-400` : tw`text-gray-400`, {fontFamily: "PoppinsRegular"}]}>{item.time}</Text>
+                <Text style={[darkMode ? tw`text-white` : tw`text-black`, { fontFamily: "PoppinsRegular" }]}>{item.title}</Text>
+                <Text style={[darkMode ? tw`text-gray-400` : tw`text-gray-400`, { fontFamily: "PoppinsRegular" }]}>{item.time}</Text>
               </View>
             </View>
-            <Text style={darkMode ?  [tw`text-green-600 font-bold px-2 py-1 rounded-lg `, styles.amountDark] : [tw`text-green-600 font-bold px-2 py-1 rounded-lg `, styles.amountWhite]}>
+            <Text style={darkMode ? [tw`text-green-600 font-bold px-2 py-1 rounded-lg `, styles.amountDark] : [tw`text-green-600 font-bold px-2 py-1 rounded-lg `, styles.amountWhite]}>
               {item.amount}
             </Text>
           </View>
@@ -495,7 +513,7 @@ const DashboardScreen = () => {
           tw`bg-green-500 h-16 w-16 flex items-center justify-center rounded-full`,
           {
             position: "absolute",
-            right:20,
+            right: 20,
             bottom: 30,
             zIndex: 10,
           },

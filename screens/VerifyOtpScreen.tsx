@@ -19,7 +19,6 @@ import tw from "tailwind-react-native-classnames";
 import { TextInput } from "react-native";
 import { useFonts } from "expo-font";
 import { TouchableOpacity } from "react-native";
-import axios from "axios";
 import { backendApi } from "@/api/axiosInstance";
 import { validateOtpForm } from "@/utils/utils";
 import Toast from "react-native-toast-message";
@@ -86,6 +85,8 @@ const VerifyOtpScreen = () => {
                         'Content-Type': 'application/json',
                     },
                 })
+
+                
                 console.log(response);
                 router.push("/Login")
         }

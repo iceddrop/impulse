@@ -26,3 +26,12 @@ export interface SignUpStore {
   confirmPassword: string;
   referralCode?: string;
 }
+
+export interface CreateAccountPayload {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  country: string;
+  preferred_bank: string;
+}
