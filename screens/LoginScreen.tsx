@@ -1,6 +1,5 @@
 import { LoginData } from "@/types/type";
 import Entypo from "@expo/vector-icons/Entypo";
-import axios from "axios";
 import { useFonts } from "expo-font";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -140,7 +139,8 @@ const LoginScreen = () => {
       />
       <Text>{errors.password && <Text style={tw`text-red-500`}>{errors.password}</Text>}</Text>
       <TouchableOpacity
-        onPress={() => loginUser()}
+      onPress={() => router.push("/Dashboard")}
+        // onPress={() => loginUser()}
         style={tw`bg-green-500 mt-4 h-12 rounded-md items-center justify-center`}
       >{isLoading ?
         <ActivityIndicator size="small" color="white" /> :

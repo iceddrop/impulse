@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity } from "react-native";
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { View } from "react-native";
 import CustomTab from "@/components/tab/CustomTab";
 import tw from "tailwind-react-native-classnames";
@@ -15,6 +15,7 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 const ImpulseBankScreen = () => {
     const [showBalance, setShowBalance] = useState(false);
     const { darkMode } = useTheme();
+    const [openModal, setOpenModal] = useState(false);
     return (
         <>
             <ScrollView style={[tw`flex-1 pt-12 relative px-4`, { backgroundColor: darkMode ? "#1F2937" : "whitesmoke" }]}>
@@ -99,14 +100,14 @@ const ImpulseBankScreen = () => {
                 </View>
                 <View style={tw`flex flex-row justify-between mt-4 px-2`}>
                     <View style={tw`flex flex-col items-center justify-center`}>
-                        <View style={[tw`rounded-xl p-3 flex `, styles.card]}>
+                        <Pressable style={[tw`rounded-xl p-3 flex `, styles.card]} onPress={()=> setOpenModal(true)}>
                             <Fontisto
                                 style={tw`font-extrabold`}
                                 name="plus-a"
                                 size={24}
                                 color="#166534"
                             />
-                        </View>
+                        </Pressable>
                         <Text style={[darkMode ? tw`text-white mt-2` : tw`text-black mt-2`,{fontFamily: "PoppinsRegular"}]}>Quick Save</Text>
                     </View>
                     <View>
@@ -132,14 +133,42 @@ const ImpulseBankScreen = () => {
                 </View>
             </ScrollView>
             <CustomTab />
+             <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={openModal}
+                    onRequestClose={() => setOpenModal(false)}>
+                    <View style={styles.modalOverlay}>
+                        <View style={[darkMode ? tw`bg-gray-800` : tw`bg-gray-100`, styles.modalBox]}>
+                            <View style={tw`flex justify-center items-center`}>
+                                <AntDesign name="checkcircle" size={24} color="green" />
+                                <Text style={darkMode ? tw`text-gray-100 text-center py-1` : tw`text-center text-gray-600 py-1`}>Profile Update Success</Text>
+                            </View>
+                            <View style={tw`flex items-center justify-center`}>
+                                <TouchableOpacity onPress={() => { setOpenModal(false) }} style={tw`bg-green-500 mt-6 w-40 h-12 rounded-md items-center justify-center`}><Text style={[tw`text-white text-lg`, { fontFamily: "PoppinsRegular" }]}>ok</Text></TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
         </>
     )
 }
 
-const styles = {
+const styles = StyleSheet.create({
     card: {
         backgroundColor: "rgba(22, 101, 52, 0.2)",
-    }
-}
+    },
+        modalOverlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.5)",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalBox: {
+        padding: 24,
+        borderRadius: 10,
+        width: "80%",
+    },
+})
 
 export default ImpulseBankScreen;

@@ -23,7 +23,7 @@ import { useRouter } from "expo-router";
 import { useTabStore } from "@/store/store";
 import { useAuth } from "@/context/AuthContext";
 
-type AppRoutes = "/ImpulseBank" | "/ImpulseNaira" | "/Login" | "/Dashboard";
+type AppRoutes = "/ImpulseBank" | "/ImpulseNaira" | "/Login" | "/Dashboard" | "/ImpulseDollar";
 
 // Update your sampleData interface
 interface SampleDataItem {
@@ -59,6 +59,12 @@ const DashboardScreen = () => {
       goal: "SETUP",
       desc: "Recieve and send money",
       route: "/ImpulseNaira",
+    },
+    {
+      plan: "Impulse Dollar",
+      goal: "SETUP",
+      desc: "Buy Dollars, watch your money grow",
+      route: "/ImpulseDollar",
     },
   ];
 
@@ -176,15 +182,17 @@ const DashboardScreen = () => {
             />
           </Text>
         </View>
-        <View
-          style={
-            darkMode
-              ? tw`bg-gray-900 h-12 w-12 flex items-center justify-center rounded-full`
-              : tw`bg-green-500 h-12 w-12 flex items-center justify-center rounded-full`
-          }
-        >
-          <Ionicons name="person" size={24} color="white" />
-        </View>
+        <Pressable onPress={() => router.push("/Profile")}>
+          <View
+            style={
+              darkMode
+                ? tw`bg-gray-900 h-12 w-12 flex items-center justify-center rounded-full`
+                : tw`bg-green-500 h-12 w-12 flex items-center justify-center rounded-full`
+            }
+          >
+            <Ionicons name="person" size={24} color="white" />
+          </View>
+        </Pressable>
       </View>
 
       <View style={tw` mt-4`}>
@@ -192,6 +200,7 @@ const DashboardScreen = () => {
           <View style={[tw`flex flex-col justify-between bg-green-500 h-60`]}>
             <View style={tw`flex flex-row justify-between px-2 py-3`}>
               <TouchableOpacity
+               onPress={() => router.push("/ImpulseBank")}
                 style={[
                   tw` py-3 rounded-3xl w-32 flex flex-row justify-center`,
                   { backgroundColor: "#FFD700" },
@@ -209,6 +218,7 @@ const DashboardScreen = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
+               onPress={() => router.push("/Savings")}
                 style={[
                   tw` py-3 rounded-3xl w-32 flex flex-row items-center justify-center`,
                   { backgroundColor: "white" },
@@ -271,12 +281,13 @@ const DashboardScreen = () => {
               </View>
 
               <TouchableOpacity
+               onPress={() => router.push("/Savings")}
                 style={[
                   tw` py-3 rounded-3xl w-32 flex flex-row items-center justify-center`,
                   { backgroundColor: "white" },
                 ]}
               >
-                <Text style={[tw`pr-1`, { fontFamily: "PoppinsRegular" }]}>
+                <Text  style={[tw`pr-1`, { fontFamily: "PoppinsRegular" }]}>
                   View All
                 </Text>
                 <FontAwesome
@@ -331,6 +342,7 @@ const DashboardScreen = () => {
           </Text>
           <View style={tw`flex flex-row items-center `}>
             <Text
+             onPress={() => router.push("/Savings")}
               style={[tw`text-green-800 `, { fontFamily: "PoppinsRegular" }]}
             >
               View All{" "}
@@ -429,7 +441,7 @@ const DashboardScreen = () => {
                       <Text style={tw`text-lg text-white font-extrabold`}>
                         18.5%
                       </Text>
-                      
+
                     </View>
                   </View>
                 </View>
